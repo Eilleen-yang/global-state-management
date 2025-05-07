@@ -50,5 +50,5 @@ const todosSlice = createSlice({
   },
 });
 
-export const { addTodo, removeTodo } = todoSlice.actions; // reeducers
-export default todoSlice.reducer;
+export const { addTodo, removeTodo } = todosSlice.actions; // reeducers
+export default todosSlice.reducer;
