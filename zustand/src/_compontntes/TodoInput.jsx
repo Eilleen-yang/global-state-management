@@ -3,7 +3,7 @@ import { useTodoStore } from "../store/todoStore";
 
 export default function TodoInput() {
   const [inputValue, setInputValue] = useState("");
-  const addTodo = useTodoStore((state) => state.addTodo);
+  const { addTodo } = useTodoStore((state) => state.actions);
 
   const handleSubmit = (e) => {
     e.preventDefault();
