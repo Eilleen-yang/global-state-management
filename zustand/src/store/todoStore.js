@@ -9,3 +9,28 @@ async function fetchTodosFormAPI() {
   const data = await response.json();
   return data;
 }
+
+export const useTodoStore = create((set) => ({
+  todos: [],
+  isLoading: false,
+  error: null,
+  actions: {
+    fetchTodos: async () => {
+      set({ isLoading: true, error: null });
+      try {
+        const todos = await fetchTodosFormAPI();
+        set({ todos, isLoading: false }); // todos 단축 문법
+      } catch (error) {
+        set({ error: error.message, isLoading: false });
+      }
+    },
+  },
+  addTodo: (title) =>
+    set((state) => ({
+      todos: [...state.todos, { id: Date.now(), title }],
+    })),
+  removeTodo: (id) =>
+    set((state) => ({
+      todos: state.todos.filter((todo) => todo.id !== id),
+    })),
+}));
