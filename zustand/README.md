@@ -1,12 +1,47 @@
-# React + Vite
+# `Zustand`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 아주 가볍고, 직관적이며, 빠른 상태 관리 라이브러리
 
-Currently, two official plugins are available:
+## `Zustand`라이브러리의 장점
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `Redux`처럼 복잡한 설정이 필요 없음
+- 글로벌 상태를 아주 쉽게 만들고 사용할 수 있음
+- `React Context + useReducer` 패턴보다 훨씬 간결함
+- 내부적으로 **Context API**를 안 쓰고, 훨씬 더 빠른 구조를 갖고 있음<br/>
+  (→ 최적화 굿 👍🏼)
+- 즉, **“상태를 관리하는 가장 간단하고 빠른 방법”**
 
-## Expanding the ESLint configuration
+## `Zustand`를 사용해야 하는 이유
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **설정 없이 바로 사용 가능**
+- **파일 분리 필요 없이** 1줄로 store 만들기 가능
+- **코드량이 매우 적음**
+- **렌더링 최적화**가 자동으로 잘 됨
+- **React 의존성이 없음** → React 외부에서도 동작할 수 있음
+- **비동기, 셀렉터, 미들웨어 확장성** 다 지원
+
+| 상황                                        | 추천 여부                                       |
+| ------------------------------------------- | ----------------------------------------------- |
+| 상태 관리가 간단한 프로젝트                 | ✅ **매우 추천**                                |
+| 전역 상태가 필요하지만 Redux 쓸 정도는 아님 | ✅ **적극 추천**                                |
+| 빠른 프로토타이핑 필요할 때                 | ✅ **추천**                                     |
+| 복잡한 상태 흐름이 필요한 대형 프로젝트     | 🚫 **"큰 규모"에서는 RTK Query/Redux까지 고려** |
+
+<br/>
+
+## (실습) 체크리스크 + 필터 기능 만들기
+
+- `API`로 리스트 불러오기 연습 테스트 (현재 주석처리)
+- 이 후, `API`구현은 부분은 제거 후, 필터기능 추가
+
+---
+
+1. 할일관리
+2. 필터 기능 구현
+
+- 요구사항
+  - 할 일을 입력하고 목록에 추가 (`API`호출하지 않기 위해 제거 : 주석)
+  - 할 일을 완료, 삭제 기능
+  - `전체 / 완료 / 미완료` 상태를 **필터 버튼**으로 분류
+  - 필터 상태를 `zustand`로 관리
+  - 할 일과 필터 상태는 가독성과 재사용성을 위해 `각 slice로 분리`
