@@ -24,6 +24,13 @@ export default function TodoList() {
   // if (isLoading) return <p>...로딩중</p>;
   // if (error) return <p>에러 발생 : {error}</p>;
 
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  if (isLoading) return <p>...Loading.</p>;
+  if (error) return <p>에러 발생 : {error} </p>;
+  
   return (
     <ul>
       {filteredTodos.map((todo) => (
